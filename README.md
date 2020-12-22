@@ -10,6 +10,9 @@
 
 The people counter application will demonstrate how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count.
 
+he people counter application will demonstrate how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count.
+The people counter application is a smart video IoT solution using Intel® hardware and software tools.
+ The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count. The app will also save a copy of the streamed output to the local storage device. The people counter app includes a built-in alarm that sends an alert the user on the GUI of the app when there are more than 5 people in the video.
 ## How it Works
 
 The counter will use the Inference Engine included in the Intel® Distribution of OpenVINO™ Toolkit. The model used should be able to identify people in a video frame. The app should count the number of people in the current frame, the duration that a person is in the frame (time elapsed between entering and exiting a frame) and the total count of people. It then sends the data to a local web server using the Paho MQTT Python package.
@@ -17,6 +20,7 @@ The counter will use the Inference Engine included in the Intel® Distribution o
 You will choose a model to use and convert it with the Model Optimizer.
 
 ![architectural diagram](./images/arch_diagram.png)
+
 
 ## Requirements
 
@@ -129,8 +133,10 @@ sudo ffserver -f ./ffmpeg/server.conf
 
 ### Step 4 - Run the code
 
-Open a new terminal to run the code. 
-
+Open a new terminal to run the code.  
+Execute this command to run the code : python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.xml -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so -d CPU -pt 0.6 | ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm
+I run this in the classroom workspace by using the “Open App” button to view the output. I have created a folder for every terminal of the process and the result of the inference. 
+Folder name is Result
 #### Setup the environment
 
 You must configure the environment to use the Intel® Distribution of OpenVINO™ toolkit one time per session by running the following command:
@@ -199,4 +205,5 @@ You can change each of these as follows:
 CAMERA_FEED_SERVER: "http://localhost:3004"
 ...
 MQTT_SERVER: "ws://localhost:3002"
-```
+
+
